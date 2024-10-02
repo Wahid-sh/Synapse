@@ -119,7 +119,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Contact
 
-For support or queries, please contact wshams@uab.edu
+For support or queries, please contact mwahid.sh@gmail.com
 
 ---
 
