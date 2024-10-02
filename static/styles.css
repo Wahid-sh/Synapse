@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --rosewater: #f5e0dc;
+    --flamingo: #f2cdcd;
+    --pink: #f5c2e7;
+    --mauve: #cba6f7;
+    --red: #f38ba8;
+    --maroon: #eba0ac;
+    --peach: #fab387;
+    --yellow: #f9e2af;
+    --green: #a6e3a1;
+    --teal: #94e2d5;
+    --sky: #89dceb;
+    --sapphire: #74c7ec;
+    --blue: #89b4fa;
+    --lavender: #b4befe;
+    --text: #cdd6f4;
+    --subtext1: #bac2de;
+    --subtext0: #a6adc8;
+    --overlay2: #9399b2;
+    --overlay1: #7f849c;
+    --overlay0: #6c7086;
+    --surface2: #585b70;
+    --surface1: #45475a;
+    --surface0: #313244;
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust: #11111b;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--base);
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--surface0);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 0 auto;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--blue);
+    margin-bottom: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 1rem;
+    color: var(--subtext1);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 1px solid var(--surface2);
+    border-radius: 4px;
+    background-color: var(--surface1);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+input[type="submit"],
+.btn {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--blue);
+    color: var(--crust);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover,
+.btn:hover {
+    background-color: var(--sapphire);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-danger {
+    background-color: var(--red);
+}
+
+.btn-danger:hover {
+    background-color: var(--maroon);
+}
+
+.btn-success {
+    background-color: var(--green);
+}
+
+.btn-success:hover {
+    background-color: var(--teal);
+}
+
+.btn-secondary {
+    background-color: var(--surface2);
+}
+
+.btn-secondary:hover {
+    background-color: var(--surface1);
+}
+
+#password-requirements {
+    margin-top: 1rem;
+    font-size: 0.9em;
+    color: var(--subtext0);
+}
+
+#password-requirements ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#password-requirements li {
+    margin-bottom: 0.5rem;
+}
+
+#password-requirements li::before {
+    content: "•";
+    margin-right: 0.5rem;
+    color: var(--overlay1);
+}
+
+.error {
+    color: var(--red);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.success {
+    color: var(--green);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+a {
+    color: var(--sky);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--sapphire);
+}
+
+p {
+    margin-top: 1rem;
+}
+
+/* Password requirement colors */
+#password-requirements li.met {
+    color: var(--green);
+}
+
+#password-requirements li.unmet {
+    color: var(--red);
+}
+
+nav {
+    background-color: var(--surface1);
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin: 0.5rem 1rem;
+}
+
+nav ul li a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--blue);
+}
+
+/* Pokemon Card Styles */
+.pokemon-card {
+    background-color: var(--surface0);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border: 2px solid var(--yellow);
+    margin-bottom: 2rem;
+}
+
+.pokemon-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.pokemon-card-header h3 {
+    color: var(--blue);
+    margin: 0;
+}
+
+.pokemon-card-timestamp {
+    font-size: 0.8em;
+    color: var(--subtext0);
+}
+
+.pokemon-card-content {
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.pokemon-card-image img,
+.pokemon-card-video video,
+.post-image,
+.post-video {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.pokemon-card-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: var(--surface1);
+    border-radius: 5px;
+}
+
+.like-section,
+.comment-section {
+    display: flex;
+    align-items: center;
+}
+
+.like-btn,
+.unlike-btn {
+    background-color: var(--blue);
+    color: var(--crust);
+    border: none;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.like-btn:hover,
+.unlike-btn:hover {
+    background-color: var(--sapphire);
+}
+
+/* Profile Pokemon Card Styles */
+.profile-card {
+    margin-bottom: 2rem;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.profile-pic-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid var(--yellow);
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    margin-bottom: 1rem;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: var(--surface1);
+    border-radius: 5px;
+}
+
+.follow-actions {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.follow-requests-list,
+.group-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.follow-requests-list li,
+.group-list li {
+    margin-bottom: 0.5rem;
+}
+
+.create-post-section {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.post-timestamp {
+    font-size: 0.8em;
+    color: var(--subtext0);
+}
+
+.post-content {
+    flex-grow: 1;
+    margin-bottom: 0.5rem;
+}
+
+.post-image-container,
+.post-video-container {
+    margin-bottom: 0.5rem;
+}
+
+.post-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+    color: var(--subtext1);
+}
+
+.comment {
+    background-color: var(--surface1);
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-timestamp {
+    font-size: 0.7em;
+    color: var(--subtext0);
+    margin-left: 0.5rem;
+}
+
+.pokemon-card-add-comment {
+    margin-top: 1rem;
+}
+
+.pokemon-card-add-comment form {
+    display: flex;
+}
+
+.pokemon-card-add-comment input[type="text"] {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+}
+
+.pokemon-card-add-comment button {
+    background-color: var(--green);
+    color: var(--crust);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pokemon-card-add-comment button:hover {
+    background-color: var(--teal);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .posts-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+footer {
+    background-color: var(--surface1);
+    color: var(--text);
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Search Users{% endblock %}
+{% block content %}
+<h1>Search Users</h1>
+<form method="POST" action="{{ url_for('search') }}">
+    <label for="search_query">Search for users:</label>
+    <input type="text" id="search_query" name="search_query" required>
+    <input type="submit" value="Search">
+</form>
+{% endblock %}

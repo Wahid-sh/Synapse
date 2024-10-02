@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}View Post{% endblock %}
+{% block content %}
+
+<div class="pokemon-card">
+    <div class="pokemon-card-header">
+        <h2>{{ post.author.username }}'s Post</h2>
+        <span class="pokemon-card-timestamp">{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+    </div>
+    <div class="pokemon-card-content">
+        {{ post.content }}
+    </div>
+    {% if post.image %}
+    <div class="pokemon-card-image">
+        <img src="{{ url_for('static', filename='uploads/posts/' + post.image) }}" alt="Post image">
+    </div>
+    {% endif %}
+    {% if post.video %}
+    <div class="pokemon-card-video">
+        <video controls>
+            <source src="{{ url_for('static', filename='uploads/posts/' + post.video) }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    {% endif %}
+    <div class="pokemon-card-stats">
+        <div class="like-section">
+            <span id="like-count-{{ post.id }}">{{ post.like_count() }}</span> likes
+            {% if current_user in post.likes %}
+            <button class="unlike-btn" data-post-id="{{ post.id }}">Unlike</button>
+            {% else %}
+            <button class="like-btn" data-post-id="{{ post.id }}">Like</button>
+            {% endif %}
+        </div>
+        <div class="comment-section">
+            <span>{{ post.comment_count() }}</span> comments
+        </div>
+    </div>
+    <div class="pokemon-card-comments">
+        <h3>Comments</h3>
+        {% for comment in post.comments %}
+        <div class="comment">
+            <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+            <span class="comment-timestamp">{{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pokemon-card-add-comment">
+        <form action="{{ url_for('add_comment', post_id=post.id) }}" method="post">
+            <input type="text" name="content" placeholder="Add a comment" required>
+            <button type="submit">Comment</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const likeButtons = document.querySelectorAll('.like-btn, .unlike-btn');
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const postId = this.getAttribute('data-post-id');
+                const isLike = this.classList.contains('like-btn');
+                const url = isLike ? `/like/${postId}` : `/unlike/${postId}`;
+
+                fetch(url, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById(`like-count-${postId}`).textContent = data.likes;
+                        this.textContent = isLike ? 'Unlike' : 'Like';
+                        this.classList.toggle('like-btn');
+                        this.classList.toggle('unlike-btn');
+                    });
+            });
+        });
+    });
+</script>
+
+{% endblock %}

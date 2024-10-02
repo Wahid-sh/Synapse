@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}'s Followers{% endblock %}
+{% block content %}
+
+<h1>{{ user.username }}'s Followers</h1>
+
+{% if followers %}
+<ul>
+    {% for follower in followers %}
+    <li>
+        <a href="{{ url_for('profile', username=follower.username) }}">{{ follower.username }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No followers yet.</p>
+{% endif %}
+
+<a href="{{ url_for('profile', username=user.username) }}" class="btn btn-secondary">Back to Profile</a>
+
+{% endblock %}

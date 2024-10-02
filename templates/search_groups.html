@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Search Groups{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Search Groups</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label for="search_query">Search for groups:</label>
+            <input type="text" class="form-control" id="search_query" name="search_query" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+{% endblock %}

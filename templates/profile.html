@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="pokemon-card profile-card">
+        <div class="profile-header">
+            <h1>{{ user.username }}'s Profile</h1>
+            {% if current_user.username == user.username %}
+            <a href="{{ url_for('edit_profile') }}" class="btn btn-secondary btn-sm">Edit Profile</a>
+            {% endif %}
+        </div>
+
+        <div class="profile-pic-container">
+            {% if user.profile_pic %}
+            <img src="{{ url_for('static', filename='uploads/profile_pics/' + user.profile_pic) }}"
+                alt="{{ user.username }}'s profile picture" class="profile-pic">
+            {% else %}
+            <div class="profile-pic-placeholder">No profile picture</div>
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <p><strong>Bio:</strong> {{ user.bio or "No bio provided" }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <div class="profile-stats">
+            <div>Followers: <a href="{{ url_for('followers', username=user.username) }}">{{ user.followers.count()
+                    }}</a></div>
+            <div>Following: <a href="{{ url_for('following', username=user.username) }}">{{ user.following.count()
+                    }}</a></div>
+        </div>
+
+        {% if current_user.username != user.username %}
+        <div class="follow-actions">
+            {% if not current_user.is_following(user) %}
+            {% if not current_user.has_sent_request(user) %}
+            <a href="{{ url_for('send_follow_request', user_id=user.id) }}" class="btn btn-primary btn-sm">Send Follow
+                Request</a>
+            {% else %}
+            <p>Follow request sent</p>
+            {% endif %}
+            {% else %}
+            <a href="{{ url_for('unfollow', user_id=user.id) }}" class="btn btn-danger btn-sm">Unfollow</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% if current_user.username == user.username %}
+    <div class="pokemon-card">
+        <h2>Follow Requests</h2>
+        {% if current_user.follow_requests.count() > 0 %}
+        <ul class="follow-requests-list">
+            {% for requester in current_user.follow_requests %}
+            <li>
+                {{ requester.username }}
+                <a href="{{ url_for('accept_follow_request', user_id=requester.id) }}"
+                    class="btn btn-success btn-sm">Accept</a>
+                <a href="{{ url_for('decline_follow_request', user_id=requester.id) }}"
+                    class="btn btn-danger btn-sm">Decline</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No pending follow requests.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="pokemon-card">
+        <h2>Group Memberships</h2>
+        {% if groups %}
+        <ul class="group-list">
+            {% for group in groups %}
+            <li><a href="{{ url_for('view_group', group_id=group.id) }}">{{ group.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Not a member of any groups.</p>
+        {% endif %}
+    </div>
+
+    {% if current_user.username == user.username %}
+    <div class="create-post-section">
+        <h2>Create a New Post</h2>
+        <a href="{{ url_for('create_post') }}" class="btn btn-primary">Create New Post</a>
+    </div>
+    {% endif %}
+
+    <div class="pokemon-card">
+        <h2>Posts</h2>
+        {% if posts %}
+        <div class="posts-container">
+            {% for post in posts %}
+            <div class="pokemon-card post-card">
+                <div class="post-header">
+                    <span class="post-timestamp">{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                </div>
+                <div class="post-content">
+                    {{ post.content }}
+                </div>
+                {% if post.image %}
+                <div class="post-image-container">
+                    <img src="{{ url_for('static', filename='uploads/posts/' + post.image) }}" alt="Post image"
+                        class="post-image">
+                </div>
+                {% endif %}
+                {% if post.video %}
+                <div class="post-video-container">
+                    <video src="{{ url_for('static', filename='uploads/posts/' + post.video) }}" controls
+                        class="post-video">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% endif %}
+                <div class="post-stats">
+                    <span>{{ post.like_count() }} likes</span>
+                    <span>{{ post.comment_count() }} comments</span>
+                </div>
+                <a href="{{ url_for('view_post', post_id=post.id) }}" class="btn btn-info btn-sm">View Post</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No posts yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ group.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>{{ group.name }}</h1>
+    <p>{{ group.description }}</p>
+    <p>Created by: <a href="{{ url_for('profile', username=group.creator.username) }}">{{ group.creator.username }}</a>
+    </p>
+    <p>Members: {{ group.members.count() }}</p>
+
+    {% if not is_member %}
+    <a href="{{ url_for('join_group', group_id=group.id) }}" class="btn btn-primary">Join Group</a>
+    <p>Join this group to see and create posts!</p>
+    {% else %}
+    <a href="{{ url_for('leave_group', group_id=group.id) }}" class="btn btn-danger">Leave Group</a>
+    <a href="{{ url_for('create_group_post', group_id=group.id) }}" class="btn btn-success">Create Post</a>
+
+    <h2>Posts</h2>
+    {% if posts %}
+    <div class="posts-container">
+        {% for post in posts %}
+        <div class="pokemon-card">
+            <div class="pokemon-card-header">
+                <h3>{{ post.author.username }}</h3>
+                <span class="pokemon-card-timestamp">{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+            </div>
+            <div class="pokemon-card-content">
+                {{ post.content }}
+            </div>
+            {% if post.image %}
+            <div class="pokemon-card-image">
+                <img src="{{ url_for('static', filename='uploads/posts/' + post.image) }}" alt="Post image"
+                    class="post-image">
+            </div>
+            {% endif %}
+            {% if post.video %}
+            <div class="pokemon-card-video">
+                <video src="{{ url_for('static', filename='uploads/posts/' + post.video) }}" controls
+                    class="post-video">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            {% endif %}
+            <div class="pokemon-card-stats">
+                <div class="like-section">
+                    <span id="like-count-{{ post.id }}">{{ post.like_count() }}</span> likes
+                    {% if current_user in post.likes %}
+                    <button class="unlike-btn" data-post-id="{{ post.id }}">Unlike</button>
+                    {% else %}
+                    <button class="like-btn" data-post-id="{{ post.id }}">Like</button>
+                    {% endif %}
+                </div>
+                <div class="comment-section">
+                    {{ post.comment_count() }} comments
+                </div>
+            </div>
+            <a href="{{ url_for('view_post', post_id=post.id) }}" class="btn btn-info btn-sm">View Post</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No posts in this group yet.</p>
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

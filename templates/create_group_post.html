@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Create Post in {{ group.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Create a New Post in {{ group.name }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="image">Image (optional):</label>
+            <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label for="video">Video (optional):</label>
+            <input type="file" class="form-control-file" id="video" name="video" accept="video/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+</div>
+{% endblock %}

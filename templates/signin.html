@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Sign In to Synapse{% endblock %}
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="container signin-container">
+
+        <h1>Sign In to Synapse</h1>
+        <p class="tagline">Connect with fellow scientists!</p>
+
+        <form method="POST" class="signin-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+
+        <p class="signup-link">Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Synapse. Wahid Shams</p>
+</footer>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Social Media App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('profile', username=current_user.username) }}">Profile</a></li>
+            <li><a href="{{ url_for('edit_profile') }}">Edit Profile</a></li>
+            <li><a href="{{ url_for('search') }}">Search Users</a></li>
+            <li><a href="{{ url_for('create_group') }}">Create Group</a></li>
+            <li><a href="{{ url_for('search_groups') }}">Search Groups</a></li>
+            <li><a href="{{ url_for('signout') }}">Sign Out</a></li>
+            {% else %}
+            <li><a href="{{ url_for('signin') }}">Sign In</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>
